@@ -4,6 +4,10 @@ import { UserEntity } from "../../../shared/infra/db/entities";
 import { NewUserDTO, UserDetailDTO } from "../dto";
 import { randomUUID } from "crypto";
 
+type GetUserByEmailOptions = {
+    withPassword: boolean;
+};
+
 export class UserRepository{
     private _repository = AppdataSource.getRepository(UserEntity);
 
@@ -58,7 +62,7 @@ export class UserRepository{
         return users;
     }  
     
-    async getUserByEmail(email: string): Promise<UserDetailDTO | null> {
+    async getUserByEmail(email: string, options?: GetUserByEmailOptions): Promise<UserDetailDTO | null> {
         const user = await this._repository.manager.findOne(UserEntity, {
             where: {
                 email,
