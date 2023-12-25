@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
-import entities, { UserEntity } from './entities';
-import migrations, { InitialCreate1703446792394 } from './migrations';
+import { UserEntity } from './entities';
+import { InitialCreate1703446792394 } from './migrations';
 require ('dotenv').config();
 
 export const AppdataSource = new DataSource({

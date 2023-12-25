@@ -1,9 +1,7 @@
-import { randomUUID } from 'crypto';
-import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryColumn } from 'typeorm';
+import { BeforeInsert, BeforeUpdate, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
 export default class BaseEntity {
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn('uuid')
     id!: string;
 
     @Column({ name: 'created_at' })
@@ -14,7 +12,6 @@ export default class BaseEntity {
 
     @BeforeInsert()
     beforeSave() {
-        this.id = randomUUID();
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
