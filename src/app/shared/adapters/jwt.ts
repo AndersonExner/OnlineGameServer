@@ -1,5 +1,5 @@
 import jwt, { JsonWebTokenError } from 'jsonwebtoken';
-import { jwtConfig } from '../../../config/jwt.config';
+import { jwtConfig } from '../../../configs/jwt.config';
 import { TokenError } from '../domain/token.error';
 
 

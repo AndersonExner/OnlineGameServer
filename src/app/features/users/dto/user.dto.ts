@@ -6,7 +6,6 @@ export interface UserDetailDTO {
 }
 
 export interface NewUserDTO {
-    id: string;
     name: string;
     email: string;
     password: string;
