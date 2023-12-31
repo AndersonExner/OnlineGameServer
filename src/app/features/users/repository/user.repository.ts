@@ -1,7 +1,7 @@
 import { ILike } from "typeorm";
 import { AppdataSource } from "../../../shared/infra/db/data-source";
 import { UserEntity } from "../../../shared/infra/db/entities";
-import { NewUserDTO, UserDetailDTO } from "../dto";
+import { NewUserDTO, UpdateUserDTO, UserDetailDTO } from "../dto";
 import { randomUUID } from "crypto";
 
 type GetUserByEmailOptions = {
@@ -32,6 +32,16 @@ export class UserRepository{
         await this._repository.save(UserEntity);
 
         return true;
+    }
+
+    async verifyID(id: string): Promise<boolean>{
+        const exist = await this._repository.manager.exists(UserEntity, {
+            where: {
+                id,
+            }
+        })
+
+        return exist;
     }
 
     async verifyEmail(email: string): Promise<boolean>{
@@ -74,5 +84,15 @@ export class UserRepository{
         }
 
         return user;
-    }    
+    }
+    
+    async userUpdate(newData: UpdateUserDTO): Promise<boolean>{
+        await this._repository.manager.update(UserEntity, newData.id, {
+            name: newData.name,
+            email: newData.email, 
+            password: newData.password
+        }); 
+
+        return true;
+    }       
 }
